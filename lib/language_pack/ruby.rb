@@ -16,6 +16,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   
   GSL_VENDOR_URL = "https://s3.amazonaws.com/gsl_1.14/gsl-1.14.tgz"
   GLPK_VENDOR_URL = "https://s3.amazonaws.com/glpk_bin/glpk-4.44.tgz"
+  NLOPT_VENDOR_URL = "https://s3.amazonaws.com/nlopt_bin/nlopt-2.3.tgz"
 
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
@@ -63,6 +64,9 @@ class LanguagePack::Ruby < LanguagePack::Base
       install_glpk
       run("cp -R vendor/glpk-4 /app/vendor/glpk")
       run("cp -R vendor/glpk-4 /app/vendor/glpk-4")      
+      install_nlopt
+      run("cp -R vendor/nlopt-2 /app/vendor/nlopt")
+      run("cp -R vendor/nlopt-2 /app/vendor/nlopt-2")      
       install_language_pack_gems
       build_bundler
       create_database_yml
@@ -363,6 +367,15 @@ ERROR
     FileUtils.mkdir_p bin_dir
     Dir.chdir(bin_dir) do |dir|
       run("curl #{GLPK_VENDOR_URL} -s -o - | tar xzf -")
+    end
+  end
+  
+  def install_nlopt
+    topic("Installing nlopt")
+    bin_dir = "vendor/nlopt-2"
+    FileUtils.mkdir_p bin_dir
+    Dir.chdir(bin_dir) do |dir|
+      run("curl #{NLOPT_VENDOR_URL} -s -o - | tar xzf -")
     end
   end  
 
