@@ -15,6 +15,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   JVM_VERSION         = "openjdk7-latest"
   
   GSL_VENDOR_URL = "https://s3.amazonaws.com/gsl_1.14/gsl-1.14.tgz"
+  GLPK_VENDOR_URL = "https://s3.amazonaws.com/glpk_bin/glpk-4.44.tgz"
 
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
@@ -59,6 +60,9 @@ class LanguagePack::Ruby < LanguagePack::Base
       install_gsl
       run("cp -R vendor/gsl-1 /app/vendor/gsl")
       run("cp -R vendor/gsl-1 /app/vendor/gsl-1")
+      install_glpk
+      run("cp -R vendor/glpk-4 /app/vendor/glpk")
+      run("cp -R vendor/glpk-4 /app/vendor/glpk-4")      
       install_language_pack_gems
       build_bundler
       create_database_yml
@@ -352,6 +356,15 @@ ERROR
       run("curl #{GSL_VENDOR_URL} -s -o - | tar xzf -")
     end
   end
+  
+  def install_glpk
+    topic("Installing glpk")
+    bin_dir = "vendor/glpk-4"
+    FileUtils.mkdir_p bin_dir
+    Dir.chdir(bin_dir) do |dir|
+      run("curl #{GLPK_VENDOR_URL} -s -o - | tar xzf -")
+    end
+  end  
 
   # install libyaml into the LP to be referenced for psych compilation
   # @param [String] tmpdir to store the libyaml files
