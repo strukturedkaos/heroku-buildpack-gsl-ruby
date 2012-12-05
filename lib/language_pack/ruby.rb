@@ -14,7 +14,8 @@ class LanguagePack::Ruby < LanguagePack::Base
   JVM_BASE_URL        = "http://heroku-jvm-langpack-java.s3.amazonaws.com"
   JVM_VERSION         = "openjdk7-latest"
   
-  GSL_VENDOR_URL = "https://s3.amazonaws.com/gsl_bin/gsl-1.15.tgz"
+  #GSL_VENDOR_URL = "https://s3.amazonaws.com/gsl_bin/gsl-1.15.tgz"
+  GSL_VENDOR_URL = "https://s3.amazonaws.com/gsl_1.14/gsl-1.14.tgz"
   GLPK_VENDOR_URL = "https://s3.amazonaws.com/glpk_bin/glpk-4.44.tgz"
   NLOPT_VENDOR_URL = "https://s3.amazonaws.com/nlopt_bin/nlopt-2.3.tgz"
 
